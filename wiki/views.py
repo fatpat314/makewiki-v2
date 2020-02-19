@@ -3,6 +3,10 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
 from wiki.models import Page
+from wiki.forms import PageForm
+from django.views.generic.edit import CreateView
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 
 
 class PageListView(ListView):
@@ -26,3 +30,15 @@ class PageDetailView(DetailView):
         return render(request, 'page.html', {
           'page': page
         })
+
+class New_wiki_form(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': PageForm()}
+        return render(request, 'new-wiki-form.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = PageForm(request.POST)
+        if form.is_valid():
+            new_wiki_form = form.save()
+            return HttpResponseRedirect(reverse_lazy('wiki-details-page', args=[new_wiki_form.slug]))
+        return render(request, 'new-wiki-form.html', {'form':form})
