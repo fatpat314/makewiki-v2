@@ -52,25 +52,25 @@ class PageListViewTests(TestCase):
             ordered=False
         )
 
-class PageDetailViewTests(TestCase):
-    def test_get_one_pages(self):
-        # Make some test data to be displayed on the page.
-        user = User.objects.create()
-
-        Page.objects.create(title="My Test Page", content="test", author=user)
-
-
-        # Issue a GET request to the detail page.
-        # When we make a request, we get a response back.
-        response = self.client.get('/my-test-page')
-
-        # Check that the response is 200 OK.
-        self.assertEqual(response.status_code, 200)
-
-        # Check that the number of pages passed to the template
-        # matches the number of pages we have in the database.
-        responses = response.context['page']
-        self.assertEqual(response.slug, 'my-test-page')
+# class PageDetailViewTests(TestCase):
+#     def test_get_one_pages(self):
+#         # Make some test data to be displayed on the page.
+#         user = User.objects.create()
+#
+#         Page.objects.create(title="My Test Page", content="test", author=user)
+#
+#
+#         # Issue a GET request to the detail page.
+#         # When we make a request, we get a response back.
+#         response = self.client.get('/my-test-page')
+#
+#         # Check that the response is 200 OK.
+#         self.assertEqual(response.status_code, 200)
+#
+#         # Check that the number of pages passed to the template
+#         # matches the number of pages we have in the database.
+#         responses = response.context['page']
+#         self.assertEqual(response.slug, 'my-test-page')
 
 # class PageCreationTests(TestCase):
 #     def test_create_form(self):
